@@ -1,13 +1,14 @@
-import { CfnOutput, cfnTagToCloudFormation, Construct, Stage, StageProps } from '@aws-cdk/core';
-// IMPORT AMPLIFY EXPORTED BACKEND HERE
-import * as path from 'path'
-import * as cdk from '@aws-cdk/core'
+import { Construct, Stage, StageProps } from '@aws-cdk/core';
+import { AmplifyExportedBackend } from '@aws-amplify/cdk-exported-backend';
+import * as path from 'path';
 
 export class AmplifyStage extends Stage {
-  
   constructor(scope: Construct, id: string, props?: StageProps) {
     super(scope, id, props);
-    
-    // ADD AMPLIFY EXPORTED BACKEND STACK HERE
+
+    new AmplifyExportedBackend(this, 'amplifyExportedBackend', {
+      amplifyEnvironment: 'main',
+      path: path.resolve(__dirname, '..', '..', '..', 'amplify-export-g2mint'),
+    });
   }
 }
